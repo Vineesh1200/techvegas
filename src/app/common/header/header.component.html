@@ -1,0 +1,93 @@
+<nav class="nav-container">
+    <div class="nav-content fx-center">
+        <div class="nav-child left fx-center">
+
+            <div class="logo fx-center">
+                <a routerLink="/home">
+                    <img src="assets/logo.png" alt="Logo" />
+                </a>
+            </div>
+
+            <div class="search-container fx-center">
+                <div class="search fx-center">
+                    <nz-input-group [nzPrefix]="suffixIcon" nzSearch>
+                        <input nz-input placeholder="Search near you" [(ngModel)]="searchText" nzAllowClear />
+                    </nz-input-group>
+
+                    <ng-template #suffixIcon>
+                        <img src="assets/Dark_Gray_Search.svg" alt="Search" />
+                    </ng-template>
+                    <button nz-button (click)="searchData()">
+                        <img src="assets/Search.svg" alt="Search" />
+                    </button>
+                </div>
+
+                <nz-modal [(nzVisible)]="isModalVisible" nzTitle="Search Results" (nzOnCancel)="handleCancel()"
+                    [nzFooter]="null">
+                    <ng-container *ngIf="searchProductData; else loading">
+                        <ng-container *ngIf="searchProductData.length > 0; else noResults">
+                            <ul class="product-list">
+                                <li *ngFor="let product of searchProductData; let i = index"
+                                    (click)="naviProduct(product._id)">
+                                    <img [src]="product.productUrls[0]?.url" [alt]="product.title" />
+                                    <div>
+                                        <h4>{{ product.title }}</h4>
+                                        <p>{{ product.category }}</p>
+                                    </div>
+                                </li>
+                            </ul>
+                        </ng-container>
+                        <ng-template #noResults>
+                            <p>No results found.</p>
+                        </ng-template>
+                    </ng-container>
+
+                    <ng-template #loading>
+                        <p>Loading...</p>
+                    </ng-template>
+                </nz-modal>
+
+            </div>
+        </div>
+
+        <div class="nav-child right fx-center">
+            <nz-badge [nzCount]="10">
+                <img class="notification" src="../../../assets/shopping-cart (3).png" alt="Notification" />
+            </nz-badge>
+
+            <div class="avator">
+                <div nz-popover [nzPopoverContent]="popoverContent" nzPlacement="bottomRight"
+                    nzPopoverTrigger="click">
+                    <a href="#" (click)="$event.preventDefault()">
+                        <img src="../../../assets/emptyAvator.png" alt="Profile" />
+                    </a>
+                </div>
+            </div>
+
+            <ng-template #popoverContent>
+                <ul class="nav-popover-container">
+                    <li class="popover-item">
+                        <a (click)="navigateUrl('/profile/admin')">
+                            <div class="profile fx-center">
+                                <nz-avatar nzSrc="../../../assets/emptyAvator.png"></nz-avatar>
+                                <div>
+                                    <h6>Techvegas</h6>
+                                    <p>Profile</p>
+                                </div>
+                            </div>
+                        </a>
+                    </li>
+                    <ng-container *ngFor="let item of items; let i = index">
+                        <li class="popover-item fx-center" (click)="navHandleChange(item.title)">
+                            <img [src]="item.icon" alt="Icon" />
+                            <a (click)="navigateUrl(item.link)" class="fx-center notification-item">
+                                <span>{{ item.title }}&nbsp;</span>
+                                <span *ngIf="item.count">{{ item.count }}</span>
+                            </a>
+                        </li>
+                    </ng-container>
+                </ul>
+            </ng-template>
+        </div>
+    </div>
+</nav>

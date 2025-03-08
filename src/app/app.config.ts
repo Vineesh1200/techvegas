@@ -2,7 +2,7 @@ import { ApplicationConfig, importProvidersFrom, provideZoneChangeDetection } fr
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideHttpClient, withInterceptors, withInterceptorsFromDi } from '@angular/common/http';
-import { BrowserModule } from '@angular/platform-browser';
+import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { PrefixApiInterceptorInterceptor } from './interceptor/prefix-api-interceptor.interceptor';
@@ -17,6 +17,7 @@ import { ProductsEffects } from './store/effects/products.effects';
 export const appConfig: ApplicationConfig = {
   providers: [
     provideZoneChangeDetection({ eventCoalescing: true }),
+    provideClientHydration(),
     provideRouter(routes),
     importProvidersFrom(BrowserModule, BrowserAnimationsModule, FormsModule),
     provideHttpClient(withInterceptors([PrefixApiInterceptorInterceptor])),

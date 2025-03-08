@@ -1,2 +1,66 @@
-<p>{{categories$ | async}}</p>
-<p>{{products$ | async}}</p>
+<div class="homeContainer">
+
+    <ul class="brand-list fx-center">
+        <li *ngFor="let option of categories$ | async; let i = index" [class.active]="selectedValue === option"
+            (click)="handleChange(option)">
+            {{ option }}
+        </li>
+    </ul>
+
+    <div nz-flex class="card-container fx-center">
+        <nz-card *ngFor="let item of this.products$ | async; let i = index" class="card-item">
+            <a (click)="navigateToDetail(item.id)">
+                <div nz-flex nzVertical class="card-item-option">
+                    <section>
+                        <img [src]="item?.image" alt="Product Image" />
+                    </section>
+                    <div class="card-item-detail">
+                        <h2>{{ item?.title }}</h2>
+                        <div class="linear fx-center">
+                            <h4>{{ item?.category }}</h4>
+                            <h3 class="amount">₹{{ item?.price }}</h3>
+                        </div>
+                        <nz-rate [ngModel]="item?.rating?.rate" nzAllowHalf nzDisabled></nz-rate>
+                        <h3 class="amount">₹{{ item?.price }}</h3>
+                    </div>
+                </div>
+            </a>
+        </nz-card>
+        <nz-card *ngFor="let item of this.products$ | async; let i = index" class="card-item">
+            <a (click)="navigateToDetail(item.id)">
+                <div nz-flex nzVertical class="card-item-option">
+                    <section>
+                        <img [src]="item?.image" alt="Product Image" />
+                    </section>
+                    <div class="card-item-detail">
+                        <h2>{{ item?.title }}</h2>
+                        <div class="linear fx-center">
+                            <h4>{{ item?.category }}</h4>
+                            <h3 class="amount">₹{{ item?.price }}</h3>
+                        </div>
+                        <nz-rate [ngModel]="item?.rating?.rate" nzAllowHalf nzDisabled></nz-rate>
+                        <h3 class="amount">₹{{ item?.price }}</h3>
+                    </div>
+                </div>
+            </a>
+        </nz-card>
+        <nz-card *ngFor="let item of this.products$ | async; let i = index" class="card-item">
+            <a (click)="navigateToDetail(item.id)">
+                <div nz-flex nzVertical class="card-item-option">
+                    <section>
+                        <img [src]="item?.image" alt="Product Image" />
+                    </section>
+                    <div class="card-item-detail">
+                        <h2>{{ item?.title }}</h2>
+                        <div class="linear fx-center">
+                            <h4>{{ item?.category }}</h4>
+                            <h3 class="amount">₹{{ item?.price }}</h3>
+                        </div>
+                        <nz-rate [ngModel]="item?.rating?.rate" nzAllowHalf nzDisabled></nz-rate>
+                        <h3 class="amount">₹{{ item?.price }}</h3>
+                    </div>
+                </div>
+            </a>
+        </nz-card>
+    </div>
+</div>

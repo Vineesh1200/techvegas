@@ -1,0 +1,189 @@
+.homeContainer {
+    padding: 15px;
+}
+
+.homeContainer .brand-list {
+    list-style-type: none;
+    gap: 10px;
+    scroll-snap-type: x mandatory;
+    overflow: scroll;
+    scroll-behavior: smooth;
+    width: 100%;
+    background-color: var(--white-clr);
+    padding-block: 5px 20px;
+    position: sticky;
+    left: 0;
+    top: 0px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 100;
+}
+
+.homeContainer .brand-list::-webkit-scrollbar {
+    display: none;
+}
+
+.homeContainer .brand-list li {
+    background: var(--light-gray-clr);
+    padding: 13px 18px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 17px;
+    cursor: pointer;
+}
+
+.homeContainer .brand-list .active {
+    color: var(--white-clr);
+    background: var(--button-bgclr);
+}
+
+.card-container {
+    flex-wrap: wrap;
+    gap: 25px !important;
+    justify-content: center;
+    margin-top: 0px;
+}
+
+.card-container .card-item {
+    width: 280px;
+    overflow: hidden;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    border-radius: 10px;
+}
+
+.card-container .card-item .ant-card-body {
+    padding: 8px !important;
+}
+
+.card-container .card-item .card-item-option a {
+    width: 100%;
+    height: 100%;
+}
+
+.card-container .card-item .card-item-option section>img {
+    border-radius: 8px;
+    height: 200px;
+    width: 100%;
+    aspect-ratio: 1/1;
+}
+
+.card-container .card-item .card-item-option .card-item-detail {
+    padding: 10px;
+}
+
+.card-container .card-item .card-item-option .card-item-detail h2 {
+    color: var(--black-clr);
+    font-size: 20px;
+    font-weight: 600;
+    padding-bottom: 0px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.card-container .card-item .card-item-option .card-item-detail h4 {
+    color: var(--gray-clr);
+    font-weight: 500;
+    display: flex;
+    align-items: center;
+    font-size: 15px;
+    white-space: nowrap;
+}
+
+.card-container .card-item .card-item-option .card-item-detail .linear {
+    justify-content: space-between;
+}
+
+.card-container .card-item .card-item-option .card-item-detail h3 {
+    color: var(--dark-blue-clr);
+    font-size: 18px;
+    font-weight: 600;
+}
+
+.card-container .card-item .card-item-option .card-item-detail>.amount {
+    display: none;
+}
+
+@media screen and (max-width:1260px) {
+    .homeContainer .brand-list {
+        padding-block: 0px 20px;
+    }
+}
+
+@media screen and (max-width:900px) {
+    .homeContainer .brand-list {
+        justify-content: center;
+    }
+}
+
+@media screen and (max-width:600px) {
+
+    .homeContainer .brand-list {
+        width: 100%;
+        position: initial;
+        padding-block: 0px 10px;
+        justify-content: left;
+    }
+
+    .homeContainer .brand-list li {
+        padding: 12px 15px;
+        border-radius: 6px;
+        font-size: 16px;
+    }
+
+    .card-container {
+        gap: 15px !important;
+    }
+
+    .card-container .card-item {
+        width: 100%;
+    }
+
+    .card-container .card-item .card-item-option {
+        flex-direction: row;
+        width: 100%;
+    }
+
+    .card-container .card-item .card-item-option section>img {
+        height: 130px;
+        width: 130px;
+        aspect-ratio: 1/1;
+    }
+
+    .card-container .card-item .card-item-option .card-item-detail {
+        padding-top: 0;
+    }
+
+    .card-container .card-item .card-item-option .card-item-detail h2 {
+        font-size: 18px;
+        width: 100%;
+        margin-bottom: 0;
+    }
+
+    .card-container .card-item .card-item-option .card-item-detail h4 {
+        font-size: 13px;
+    }
+
+    .card-container .card-item .ant-rate {
+        margin-top: -20px !important;
+    }
+
+    .card-container .card-item .card-item-option .card-item-detail h3 {
+        font-size: 17px;
+        margin-bottom: 0;
+    }
+
+    .card-container .card-item .card-item-option .card-item-detail .linear .amount {
+        display: none;
+    }
+
+    .card-container .card-item .card-item-option .card-item-detail>.amount {
+        display: flex;
+    }
+
+}

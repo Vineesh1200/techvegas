@@ -1,1 +1,77 @@
-<p>profile works!</p>
+<div class="profile-main-container">
+  <nz-row class='profile-mini-container'>
+    <nz-col class="profile-item profile fx-center" [nzLg]="{ span: 6 }" [nzMd]="{ span: 24 }" [nzXs]="{ span: 24 }">
+      <div class="avator-section">
+        <nz-avatar [nzSrc]="profileImage || 'assets/emptyAvator.png'"></nz-avatar>
+        <ng-container *ngIf="isEdit">
+          <div class="avator-edit" id="open-action-sheet">
+            <ng-container *ngIf="!isLoading; else loading">
+              <img src="assets/camera-icon.png" alt="Camera Icon" />
+            </ng-container>
+            <ng-template #loading>
+              <nz-spin></nz-spin>
+            </ng-template>
+          </div>
+        </ng-container>
+      </div>
+    </nz-col>
+
+    <nz-col class="profile-item profile fx-center" [nzLg]="{ span: 18 }" [nzMd]="{ span: 24 }" [nzXs]="{ span: 24 }">
+      <form nz-form [formGroup]="profileEditForm" (ngSubmit)="onSubmit()" nzLayout="vertical">
+
+        <nz-form-item>
+          <nz-form-label nzRequired>Username</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Fill your username'">
+            <input nz-input formControlName="userName" placeholder="Enter username" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item>
+          <nz-form-label nzRequired>Email</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Fill your email'">
+            <input nz-input formControlName="email" placeholder="Enter email" />
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="phone">
+          <nz-form-label nzRequired>Phone Number</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Fill your phone number'">
+            <nz-input-group [nzAddOnBefore]="prefixSelector">
+              <input nz-input formControlName="phone" placeholder="Enter phone number" type="number" />
+            </nz-input-group>
+          </nz-form-control>
+        </nz-form-item>
+
+        <ng-template #prefixSelector>
+          <nz-select [(ngModel)]="selectedCountry.dial_code" (ngModelChange)="onCountryChange($event)"
+            [nzDropdownMatchSelectWidth]="false" style="width: 100px;">
+            <nz-option *ngFor="let country of countriesList" [nzLabel]="country.dial_code" [nzValue]="country">
+              <img [src]="country.image" [alt]="country.name" style="width: 20px; margin-right: 8px;" />
+              {{ country.dial_code }}
+            </nz-option>
+          </nz-select>
+        </ng-template>
+
+        <nz-form-item class="gender">
+          <nz-form-label nzRequired>Gender</nz-form-label>
+          <nz-form-control [nzErrorTip]="'Please select your gender'">
+            <nz-select formControlName="gender" placeholder="Select an option...">
+              <nz-option *ngFor="let gender of genderOptions" [nzLabel]="gender.label"
+                [nzValue]="gender.value"></nz-option>
+            </nz-select>
+          </nz-form-control>
+        </nz-form-item>
+
+        <nz-form-item class="form-button">
+          <nz-form-control>
+            <button [disabled]="isLoading">
+              Save
+              <i nz-icon nzType="loading" *ngIf="isLoading"></i>
+            </button>
+          </nz-form-control>
+        </nz-form-item>
+
+      </form>
+    </nz-col>
+  </nz-row>
+</div>

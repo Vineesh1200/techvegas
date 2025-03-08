@@ -1,0 +1,97 @@
+.profile-main-container {
+    height: calc(100dvh - 100px);
+    width: 100%;
+    display: flex;
+    align-items: center;
+}
+
+.profile-mini-container {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.avator-section {
+    position: relative;
+    display: grid;
+    place-items: center;
+}
+
+.avator-section .ant-avatar {
+    width: 250px;
+    height: 250px;
+}
+
+.avator-section .avator-edit {
+    width: 60px;
+    height: 60px;
+    position: absolute;
+    bottom: -25px;
+    left: 50%;
+    transform: translateX(-50%);
+    border-radius: 50%;
+    padding: 15px;
+    background: var(--button-bgclr);
+    display: grid;
+    place-items: center;
+}
+
+.avator-section .avator-edit img {
+    width: 32px;
+    height: 32px;
+}
+
+.avator-section .avator-edit .ant-spin {
+    margin-left: -8px;
+    margin-top: 3px;
+}
+
+.ant-form {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.ant-form nz-form-label {
+    padding-block: 5px -5px;
+    padding-right: 20px !important;
+    font-size: 17px;
+}
+
+.ant-form nz-form-item {
+    margin-bottom: 15px;
+    width: 100%;
+}
+
+.ant-form .form-button nz-form-control {
+    margin-top: 10px;
+    display: grid;
+    place-items: center;
+}
+
+.ant-form button {
+    color: white;
+    padding: 6px 15px;
+    font-size: 17px;
+    width: fit-content;
+}
+
+@media screen and (max-width:768px) {
+    .avator-section .ant-avatar {
+        width: 150px;
+        height: 150px;
+    }
+
+    .avator-section .avator-edit {
+        width: 50px;
+        height: 50px;
+        padding: 5px;
+    }
+
+    .avator-section .avator-edit img {
+        width: 26px;
+        height: 26px;
+    }
+}

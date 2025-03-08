@@ -1,1 +1,138 @@
-/* You can add global styles to this file, and also import other style files */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+    --gray-clr: #838383;
+    --light-gray-clr: #F7F7F7;
+    --white-clr: #fff;
+    --black-clr: #000;
+    --dark-blue-clr: rgba(42, 75, 160, 1);
+    --light-blue-clr: rgba(10, 142, 217, 1);
+    --red-clr: #ff0000;
+    --button-bgclr: linear-gradient(180deg, #A0DAFB -22.93%, #0A8ED9 131.41%);
+}
+
+nz-button,
+button {
+    color: var(--white-clr);
+    background: var(--button-bgclr);
+    border-radius: 8px;
+    cursor: pointer;
+    outline: none;
+    border: none;
+}
+
+/* COMMON CSS */
+
+.fx-center {
+    display: flex;
+    align-items: center;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6,
+p,
+label,
+div,
+span,
+input,
+textarea,
+button,
+input::placeholder,
+textarea::placeholder {
+    margin: 0;
+    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif !important;
+}
+
+h6,
+h5 {
+    font-size: 16px;
+}
+
+nz-form-control nz-select-top-control,
+input {
+    width: 100%;
+    min-height: 45px;
+    outline: none;
+    padding: 7px 15px !important;
+    font-size: 15px;
+    border: none;
+}
+
+/* ANTD */
+
+.ant-modal-wrap>div .ant-modal-content .ant-modal-body {
+    max-height: calc(100dvh - 260px);
+    overflow-y: scroll;
+}
+
+.ant-modal-wrap>div .ant-modal-content .ant-modal-body::-webkit-scrollbar {
+    display: none;
+}
+
+.ant-form-item-label>label.ant-form-item-required:not(.ant-form-item-required-mark-optional)::before {
+    display: inline-block;
+    position: absolute;
+    right: -10px;
+    top: -2px;
+}
+
+.ant-breadcrumb-separator {
+    margin-top: -3px;
+    font-size: 20px;
+}
+
+.ant-breadcrumb-link {
+    background-color: transparent !important;
+}
+
+/* ANTD FORM ERROR MESSAGE */
+
+.ant-form .ant-form-item .ant-form-item-explain-error {
+    text-align: left;
+    margin-top: 3px;
+}
+
+/* ANTD IMAGE */
+
+.ant-image-mask {
+    border-radius: 10px;
+}
+
+/* ANTD POPOVER CSS */
+
+.ant-popover-inner {
+    padding: 0 !important;
+}
+
+.middle-content-container {
+    position: relative;
+    padding-inline: 15px;
+}
+
+/* ANTD SPIN CSS */
+
+.ant-spin .ant-spin-dot {
+    width: 16px;
+    height: 16px;
+    margin-left: 8px;
+}
+
+.ant-spin .ant-spin-dot .ant-spin-dot-item {
+    background-color: var(--white-clr);
+    width: 6px;
+    height: 6px;
+}
