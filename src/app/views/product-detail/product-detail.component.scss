@@ -1,0 +1,18 @@
+.detailContainer{
+    padding: 15px;
+    height: calc(100dvh - 95px);
+}
+
+.detailContainer nz-row nz-col:last-child{
+    margin-block: auto;
+}
+
+.detailContainer img {
+    width: 100%;
+}
+
+.detailContainer button {
+    color: var(--white-clr);
+    padding: 10px 20px;
+    margin-top: 10px;
+}

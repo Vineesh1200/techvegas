@@ -1,28 +1,54 @@
 import { Component, inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SingleProductActions } from '../../store/action/products.actions';
-import { Observable } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ProductInterface } from '../../interfaces/product-interface';
 import { selectedSingleProduct } from '../../store/selector/products.selectors';
+import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';
+import { AsyncPipe, CommonModule } from '@angular/common';
+import { FormsModule } from '@angular/forms';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzGridModule } from 'ng-zorro-antd/grid';
+import { NzRateModule } from 'ng-zorro-antd/rate';
+import { CartsActions } from '../../store/action/cart.actions';
 
 @Component({
   selector: 'app-product-detail',
   standalone: true,
-  imports: [],
+  imports: [CommonModule, FormsModule, AsyncPipe, NzSkeletonModule, NzIconModule, NzGridModule, NzRateModule],
   templateUrl: './product-detail.component.html',
   styleUrl: './product-detail.component.scss'
 })
 export class ProductDetailComponent {
 
-  singleProduct$! : Observable<ProductInterface[]>;
+  productId: string = "";
+  singleProduct$!: Observable<ProductInterface[]>;
 
-  private router = inject(Router);
+  private activatedRoute = inject(ActivatedRoute);
   private store$ = inject(Store);
 
+  constructor() { }
+
   ngOnInit() {
-    this.store$.dispatch(SingleProductActions.getSingleProduct({productId:1}));
-    this.singleProduct$ = this.store$.select(selectedSingleProduct);
+    this.activatedRoute.params.pipe(
+      map((response: Params) => {
+        this.productId = response['id'];
+        if (this.productId) {
+          this.store$.dispatch(SingleProductActions.getSingleProduct({ productId: Number(this.productId) }));
+          this.singleProduct$ = this.store$.select(selectedSingleProduct);
+        }
+      })
+    ).subscribe();
+  }
+
+  addCart(detail: ProductInterface) {
+    const cartData: any = {
+      id: 1,
+      userId: 1,
+      products: [detail]
+    }
+    this.store$.dispatch(CartsActions.addCarts({ userId: 1, addCartData: cartData }));
   }
 
 }

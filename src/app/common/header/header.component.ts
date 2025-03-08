@@ -14,6 +14,7 @@ import { filter, map, Observable, of } from 'rxjs';
 import { selectedProducts } from '../../store/selector/products.selectors';
 import { CartsActions } from '../../store/action/cart.actions';
 import { selectedCartTotal } from '../../store/selector/cart.selectors';
+import { UserActions } from '../../store/action/user.actions';
 
 @Component({
   selector: 'app-header',
@@ -49,6 +50,7 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.searchProductData$ = this.store$.select(selectedProducts);
+    this.store$.dispatch(UserActions.getUser({ userId: 1 }));
     this.store$.dispatch(CartsActions.getCarts({ userId: 1 }));
     this.store$.select(selectedCartTotal).subscribe((total: number) => {
       this.cartsCount = total

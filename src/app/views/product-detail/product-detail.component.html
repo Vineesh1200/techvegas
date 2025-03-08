@@ -1,1 +1,17 @@
-<p>product-detail works!</p>
+<div class="detailContainer">
+    <ng-container *ngFor="let detail of singleProduct$ |async;">
+        <nz-row [nzGutter]="[30, 30]">
+            <nz-col [nzLg]="{ span: 7 }" [nzMd]="{ span: 24 }" [nzXs]="{ span: 24 }">
+                <img [src]="detail.image" alt="">
+            </nz-col>
+            <nz-col [nzLg]="{ span: 17 }" [nzMd]="{ span: 24 }" [nzXs]="{ span: 24 }">
+                <h1>{{detail.title}}</h1>
+                <h3>{{detail.category}}</h3>
+                <nz-rate [ngModel]="2" nzDisabled></nz-rate>
+                <h1>₹{{detail.price}}</h1>
+                <h5>{{detail.description}}</h5>
+                <button (click)="addCart(detail)">Add Cart</button>
+            </nz-col>
+        </nz-row>
+    </ng-container>
+</div>

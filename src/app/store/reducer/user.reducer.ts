@@ -17,7 +17,8 @@ export const initialState: UserState = adapter.getInitialState({
 
 export const userReducer = createReducer(
   initialState,
-  on(UserActions.getUserSuccess, (state: UserState, { user }) => (adapter.setAll(user, { ...state, errorMessage: '' }))),
+  on(UserActions.getUserSuccess, (state: UserState, { user }) => (adapter.setAll([user], { ...state, errorMessage: '' }))),
+  on(UserActions.updateUserSuccess, (state: UserState, { user }) => (adapter.updateOne(user, { ...state, errorMessage: '' }))),
   on(UserActions.failedUserApi, (state: UserState, { errorMessage }) => ({ ...state, categories: state.entities, errorMessage: errorMessage })),
 );
 

@@ -11,6 +11,9 @@ import { CommonModule } from '@angular/common';
 import { countries } from '../../helpers/countries';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../store/action/user.actions';
+import { selectedUser } from '../../store/selector/user.selectors';
+import { ProfileInterface } from '../../interfaces/profile-interface';
+import { UsersService } from '../../services/users.service';
 
 interface Country {
   dial_code: string;
@@ -40,47 +43,45 @@ interface Country {
 
 export class ProfileComponent {
 
-  profileImage: string = "";
-  isEdit: boolean = false;
+  profileImage: string = "assets/emptyAvator.png";
   profileEditForm: FormGroup;
-  isLoading = false;
-  genderOptions = [
-    { label: 'Male', value: 'male' },
-    { label: 'Female', value: 'female' },
-    { label: 'Other', value: 'other' },
-  ];
-  countriesList: Country[] = countries;
-  selectedCountry: Country = this.countriesList[0];
 
   private fb = inject(FormBuilder);
   private store$ = inject(Store);
 
   constructor() {
     this.profileEditForm = this.fb.group({
-      userName: ['', [Validators.required, Validators.pattern(/\S/)]],
-      email: [{ value: 'techvegas@gmail.com', disabled: true }, [Validators.required, Validators.email]],
-      phone: ['', [Validators.required, Validators.pattern(/\S/)]],
-      gender: ['', [Validators.required]],
-      countryCode: [this.selectedCountry.dial_code],
+      id: ['', [Validators.required, Validators.required]],
+      username: ['', [Validators.required]],
+      password: ['', [Validators.required]],
+      email: ['', [Validators.required, Validators.email]],
+      phone: ['', [Validators.required]],
+      name: this.fb.group({
+        firstname: ['', [Validators.required]],
+        lastname: ['', [Validators.required]],
+      }),
+      address: this.fb.group({
+        street: ['', [Validators.required]],
+        city: ['', [Validators.required]],
+        number: ['', [Validators.required]],
+        zipcode: ['', [Validators.required]],
+      }),
     });
   }
 
   ngOnInit() {
-    this.store$.dispatch(UserActions.getUser({ userId: 1 }));
+    this.store$.select(selectedUser).subscribe((user: any) => {
+      if (user.length > 0) {
+        this.profileEditForm.patchValue(user[0]);
+      }
+    })
   }
 
-  onCountryChange(country: Country): void {
-    this.selectedCountry = country;
-    this.profileEditForm.get('countryCode')?.setValue(country.dial_code);
-  }
-
-  onSubmit(): void {
+  onSubmit() {
     if (this.profileEditForm.valid) {
-      this.isLoading = true;
-      console.log('Form submitted:', this.profileEditForm.value);
-      setTimeout(() => {
-        this.isLoading = false;
-      }, 2000);
+      const userId = this.profileEditForm.value.id;
+      const user = this.profileEditForm.value;
+      this.store$.dispatch(UserActions.updateUser({ userId, user }));
     } else {
       Object.values(this.profileEditForm.controls).forEach((control) => {
         if (control.invalid) {

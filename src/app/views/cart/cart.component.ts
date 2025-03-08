@@ -44,14 +44,12 @@ export class CartComponent {
   }
 
   removeProduct(item: ProductInterface) {
-    this.removeObjectById(2).subscribe((products: ProductInterface[]) => {
-      const cartData: any = {
-        id: 1,
-        userId: 1,
-        products: products
-      }
-      this.store$.dispatch(CartsActions.deleteCarts({ userId: 1, updateCartData: cartData, deletedProductByCart: item }))
-    });
+    const cartData: any = {
+      id: 1,
+      userId: 1,
+      products: [item]
+    }
+    this.store$.dispatch(CartsActions.deleteCarts({ userId: 1, updateCartData: cartData, deletedProductByCart: item }))
   }
 
 }
