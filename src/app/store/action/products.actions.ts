@@ -9,3 +9,11 @@ export const ProductsActions = createActionGroup({
     'Failed Products By Category Api': props<{ errorMessage: string }>(),
   }
 });
+
+export const SingleProductActions = createActionGroup({
+  source: 'SingleProduct',
+  events: {
+    'Get Single Product': props<{ productId: number }>(),
+    'Get Single Product Success': props<{ singleProduct: ProductInterface }>(),
+  }
+});

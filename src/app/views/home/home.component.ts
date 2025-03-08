@@ -60,7 +60,7 @@ export class HomeComponent {
   }
 
   navigateToDetail(productId: number): void {
-    this.router.navigate([`/detail/${productId}`]);
+    this.router.navigate([`/product-detail/${productId}`]);
   }
 
 }

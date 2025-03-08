@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { FormsModule } from '@angular/forms';
 import { CartsActions } from '../../store/action/cart.actions';
-import { selectedCartProducts } from '../../store/selector/cart.selectors';
+import { selectedCartProducts, selectedCartTotal } from '../../store/selector/cart.selectors';
 import { CartsService } from '../../services/carts.service';
 
 @Component({
@@ -25,12 +25,16 @@ import { CartsService } from '../../services/carts.service';
 export class CartComponent {
 
   cartProducts$ !: Observable<ProductInterface[]>;
+  cartsCount: number = 0;
 
   private store$ = inject(Store);
   private cartsService = inject(CartsService);
 
   ngOnInit() {
     this.cartProducts$ = this.store$.select(selectedCartProducts);
+    this.store$.select(selectedCartTotal).subscribe((total: number) => {
+      this.cartsCount = total
+    });
   }
 
   removeObjectById(id: number) {

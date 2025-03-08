@@ -75,7 +75,7 @@ export class HeaderComponent {
   }
 
   naviProduct(productId: number): void {
-    this.router.navigate([`/product/${productId}`]);
+    this.router.navigate([`/product-detail/${productId}`]);
   }
 
   navigateUrl(link: string): void {

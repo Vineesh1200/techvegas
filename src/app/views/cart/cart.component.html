@@ -1,5 +1,5 @@
 <div class="cartContainer">
-    <h2 align="center">Carts : 15</h2>
+    <h2 align="center">Carts : {{cartsCount}}</h2>
     <div nz-flex class="card-container fx-center">
         <nz-card *ngFor="let item of this.cartProducts$ | async; let i = index" class="card-item">
             <a>
