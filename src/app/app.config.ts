@@ -13,6 +13,8 @@ import { categoriesFeatureKey, categoriesReducer } from './store/reducer/categor
 import { CategoriesEffects } from './store/effects/categories.effects';
 import { productsFeatureKey, productsReducer } from './store/reducer/products.reducer';
 import { ProductsEffects } from './store/effects/products.effects';
+import { cartsFeatureKey, cartsReducer } from './store/reducer/cart.reducer';
+import { CartsEffects } from './store/effects/cart.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -22,8 +24,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserModule, BrowserAnimationsModule, FormsModule),
     provideHttpClient(withInterceptors([PrefixApiInterceptorInterceptor])),
     provideHttpClient(withInterceptorsFromDi()),
-    provideStore({ [categoriesFeatureKey]: categoriesReducer,[productsFeatureKey]: productsReducer }),
-    provideEffects([CategoriesEffects,ProductsEffects]),
+    provideStore({ [categoriesFeatureKey]: categoriesReducer,[productsFeatureKey]: productsReducer,[cartsFeatureKey]: cartsReducer }),
+    provideEffects([CategoriesEffects,ProductsEffects,CartsEffects]),
     provideStoreDevtools(),
   ]
 };

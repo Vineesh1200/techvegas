@@ -44,14 +44,19 @@ export class HomeComponent {
     this.categories$.subscribe((value: any) => {
       if (value.length > 0) {
         this.selectedValue = value[0];
-        this.store$.dispatch(ProductsActions.getProductsByCategory({ category: this.selectedValue }));
-        this.products$ = this.store$.select(selectedProducts);
+        this.getProducts();
       }
     })
   }
 
+  getProducts() {
+    this.store$.dispatch(ProductsActions.getProductsByCategory({ category: this.selectedValue }));
+    this.products$ = this.store$.select(selectedProducts);
+  }
+
   handleChange(value: string): void {
     this.selectedValue = value;
+    this.getProducts();
   }
 
   navigateToDetail(productId: number): void {

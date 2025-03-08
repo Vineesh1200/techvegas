@@ -1,1 +1,23 @@
-<p>cart works!</p>
+<div class="cartContainer">
+    <h2 align="center">Carts : 15</h2>
+    <div nz-flex class="card-container fx-center">
+        <nz-card *ngFor="let item of this.cartProducts$ | async; let i = index" class="card-item">
+            <a>
+                <div nz-flex nzVertical class="card-item-option">
+                    <section>
+                        <img [src]="item?.image" alt="Product Image" />
+                    </section>
+                    <div class="card-item-detail">
+                        <h2>{{ item?.title }}</h2>
+                        <div class="linear fx-center">
+                            <h4>{{ item?.category }}</h4>
+                            <h3 class="amount">₹{{ item?.price }}</h3>
+                        </div>
+                        <h3 class="amount">₹{{ item?.price }}</h3>
+                        <button (click)="removeProduct(item)">Remove</button>
+                    </div>
+                </div>
+            </a>
+        </nz-card>
+    </div>
+</div>

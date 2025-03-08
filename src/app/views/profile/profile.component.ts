@@ -9,6 +9,7 @@ import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { CommonModule } from '@angular/common';
 import { countries } from '../../helpers/countries';
+import { Store } from '@ngrx/store';
 
 interface Country {
   dial_code: string;
@@ -51,6 +52,7 @@ export class ProfileComponent {
   selectedCountry: Country = this.countriesList[0];
 
   private fb = inject(FormBuilder);
+  private store$ = inject(Store);
 
   constructor() {
     this.profileEditForm = this.fb.group({

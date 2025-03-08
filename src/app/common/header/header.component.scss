@@ -15,11 +15,11 @@
 
 .nav-container .nav-content {
     justify-content: space-between;
-    gap: 25px;
+    gap: 10px;
 }
 
 .nav-container .nav-child.left {
-    gap: 35px;
+    gap: 10px;
     width: 100%;
 }
 
@@ -27,15 +27,8 @@
     flex-direction: column;
 }
 
-.nav-container .nav-child.left .logo>img {
-    min-width: 75px;
-}
-
-.nav-container .nav-child.left .hamburger {
-    width: 35px;
-    min-width: 35px;
-    display: none;
-    margin-right: 5px;
+.nav-container .nav-child.left .logo img {
+    max-width: 205px;
 }
 
 .nav-container .search-container {
@@ -56,7 +49,7 @@
     border-radius: 6px;
 }
 
-.nav-container .search-container .search input{
+.nav-container .search-container .search input {
     background-color: var(--light-gray-clr);
 }
 
@@ -101,6 +94,15 @@
     border: none;
     border-radius: 6px;
     background: linear-gradient(180deg, #A0DAFB -22.93%, #0A8ED9 131.41%);
+}
+
+::ng-deep .ant-modal-content {
+    border-radius: 10px;
+}
+
+::ng-deep .ant-modal-header {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
 }
 
 .nav-container .nav-child.right {
@@ -157,9 +159,13 @@
     display: none;
 }
 
+::ng-deep .ant-popover-inner {
+    background: var(--button-bgclr);
+    border-radius: 8px;
+}
+
 .nav-popover-container {
     background: var(--button-bgclr);
-    padding: 10px;
     margin: 0;
     display: flex;
     flex-direction: column;
@@ -226,4 +232,48 @@
 .nav-popover-container .popover-item .notification-item {
     justify-content: space-between;
     color: var(--white-clr);
+}
+
+.product-list {
+    list-style: none;
+    padding: 0;
+    margin: -15px 0 0;
+}
+
+.product-list .product-item {
+    display: flex;
+    align-items: center;
+    padding-block: 10px;
+    border-bottom: 1px solid #eaeaea;
+    cursor: pointer;
+}
+
+.product-list .product-image {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 5px;
+    margin-right: 10px;
+}
+
+.product-list .product-details {
+    flex: 1;
+}
+
+.product-list .product-details .product-title {
+    margin: 0;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.product-list .product-details .product-category {
+    margin: 0;
+    font-size: 14px;
+    color: #888;
+}
+
+@media screen  and (max-width:600px){
+    .nav-container .nav-child.left .logo img {
+        max-width: 100px;
+    }
 }

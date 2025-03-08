@@ -13,6 +13,16 @@ export class ProductsService {
 
   constructor() { }
 
+  getProducts(category: string): Observable<ProductInterface[]> {
+    const endPoint = `products`;
+    return this.http.get<ProductInterface[]>(endPoint);
+  }
+
+  getSingleProducts(productId: number): Observable<ProductInterface> {
+    const endPoint = `products/${productId}`;
+    return this.http.get<ProductInterface>(endPoint);
+  }
+
   getProductsByCategory(category: string): Observable<ProductInterface[]> {
     const endPoint = `products/category/${category}`;
     return this.http.get<ProductInterface[]>(endPoint);
