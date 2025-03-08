@@ -10,13 +10,15 @@ import { NzPopoverModule } from 'ng-zorro-antd/popover';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { Store } from '@ngrx/store';
 import { ProductInterface } from '../../interfaces/product-interface';
-import { filter, map, Observable } from 'rxjs';
+import { filter, map, Observable, of } from 'rxjs';
 import { selectedProducts } from '../../store/selector/products.selectors';
+import { CartsActions } from '../../store/action/cart.actions';
+import { selectedCartTotal } from '../../store/selector/cart.selectors';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, NzInputModule, NzSpinModule, FormsModule, NzModalModule, NzBadgeModule, NzPopoverModule, NzAvatarModule, AsyncPipe,RouterLink],
+  imports: [CommonModule, NzInputModule, NzSpinModule, FormsModule, NzModalModule, NzBadgeModule, NzPopoverModule, NzAvatarModule, AsyncPipe, RouterLink],
   templateUrl: './header.component.html',
   styleUrl: './header.component.scss'
 })
@@ -33,6 +35,7 @@ export class HeaderComponent {
   searchProductData$!: Observable<ProductInterface[]>;
   filteredProducts$!: Observable<ProductInterface[]>;
   isLoading: boolean = false;
+  cartsCount: number = 0;
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -46,6 +49,10 @@ export class HeaderComponent {
 
   ngOnInit() {
     this.searchProductData$ = this.store$.select(selectedProducts);
+    this.store$.dispatch(CartsActions.getCarts({ userId: 1 }));
+    this.store$.select(selectedCartTotal).subscribe((total: number) => {
+      this.cartsCount = total
+    });
   }
 
   searchData(): void {

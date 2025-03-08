@@ -10,6 +10,7 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { CommonModule } from '@angular/common';
 import { countries } from '../../helpers/countries';
 import { Store } from '@ngrx/store';
+import { UserActions } from '../../store/action/user.actions';
 
 interface Country {
   dial_code: string;
@@ -62,6 +63,10 @@ export class ProfileComponent {
       gender: ['', [Validators.required]],
       countryCode: [this.selectedCountry.dial_code],
     });
+  }
+
+  ngOnInit() {
+    this.store$.dispatch(UserActions.getUser({ userId: 1 }));
   }
 
   onCountryChange(country: Country): void {

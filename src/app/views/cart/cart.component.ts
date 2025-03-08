@@ -12,7 +12,6 @@ import { FormsModule } from '@angular/forms';
 import { CartsActions } from '../../store/action/cart.actions';
 import { selectedCartProducts } from '../../store/selector/cart.selectors';
 import { CartsService } from '../../services/carts.service';
-import { CartInterface } from '../../interfaces/cart-interface';
 
 @Component({
   selector: 'app-cart',
@@ -31,7 +30,6 @@ export class CartComponent {
   private cartsService = inject(CartsService);
 
   ngOnInit() {
-    this.store$.dispatch(CartsActions.getCarts({ userId: 1 }));
     this.cartProducts$ = this.store$.select(selectedCartProducts);
   }
 
@@ -48,7 +46,6 @@ export class CartComponent {
         userId: 1,
         products: products
       }
-      console.log(products)
       this.store$.dispatch(CartsActions.deleteCarts({ userId: 1, updateCartData: cartData, deletedProductByCart: item }))
     });
   }

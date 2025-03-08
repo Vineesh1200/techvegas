@@ -9,3 +9,8 @@ export const selectedCartProducts = createSelector(
     selectCartProductsState,
     CartsReducer.selectAllCarts
 )
+
+export const selectedCartTotal = createSelector(
+    selectCartProductsState,
+    CartsReducer.selectCartsTotal
+)

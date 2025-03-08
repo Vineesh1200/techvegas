@@ -9,14 +9,14 @@ import { UserActions } from '../action/user.actions';
   providedIn: 'root'
 })
 
-export class ProductsEffects {
+export class UserEffects {
 
   private actions$ = inject(Actions);
   private usersService = inject(UsersService);
 
   constructor() { }
 
-  loadProductsByCategory$ = createEffect(() => this.actions$.pipe(
+  loadUser$ = createEffect(() => this.actions$.pipe(
     ofType(UserActions.getUser),
     exhaustMap(({ userId }) => this.usersService.getSingleUser(userId).pipe(
       map((user: any) => {

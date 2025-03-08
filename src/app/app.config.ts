@@ -15,6 +15,8 @@ import { productsFeatureKey, productsReducer } from './store/reducer/products.re
 import { ProductsEffects } from './store/effects/products.effects';
 import { cartsFeatureKey, cartsReducer } from './store/reducer/cart.reducer';
 import { CartsEffects } from './store/effects/cart.effects';
+import { userFeatureKey, userReducer } from './store/reducer/user.reducer';
+import { UserEffects } from './store/effects/user.effects';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -24,8 +26,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserModule, BrowserAnimationsModule, FormsModule),
     provideHttpClient(withInterceptors([PrefixApiInterceptorInterceptor])),
     provideHttpClient(withInterceptorsFromDi()),
-    provideStore({ [categoriesFeatureKey]: categoriesReducer,[productsFeatureKey]: productsReducer,[cartsFeatureKey]: cartsReducer }),
-    provideEffects([CategoriesEffects,ProductsEffects,CartsEffects]),
+    provideStore({ [categoriesFeatureKey]: categoriesReducer,[productsFeatureKey]: productsReducer,[cartsFeatureKey]: cartsReducer,[userFeatureKey]: userReducer }),
+    provideEffects([CategoriesEffects,ProductsEffects,CartsEffects,UserEffects]),
     provideStoreDevtools(),
   ]
 };

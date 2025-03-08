@@ -13,7 +13,7 @@ export class UsersService {
   constructor() { }
 
   getSingleUser(userId: number): Observable<any> {
-    const endPoint = `user/${userId}`;
+    const endPoint = `users/${userId}`;
     return this.http.get<any>(endPoint);
   }
 
