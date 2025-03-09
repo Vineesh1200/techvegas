@@ -11,7 +11,7 @@ import { provideEffects } from '@ngrx/effects';
 import { provideStoreDevtools } from '@ngrx/store-devtools';
 import { categoriesFeatureKey, categoriesReducer } from './store/reducer/categories.reducer';
 import { CategoriesEffects } from './store/effects/categories.effects';
-import { productsFeatureKey, productsReducer, singleProductFeatureKey, singleProductReducer } from './store/reducer/products.reducer';
+import { productsFeatureKey, productsReducer, productsByCategoryFeatureKey, productsByCategoryReducer, singleProductFeatureKey, singleProductReducer } from './store/reducer/products.reducer';
 import { ProductsEffects } from './store/effects/products.effects';
 import { cartsFeatureKey, cartsReducer } from './store/reducer/cart.reducer';
 import { CartsEffects } from './store/effects/cart.effects';
@@ -26,8 +26,8 @@ export const appConfig: ApplicationConfig = {
     importProvidersFrom(BrowserModule, BrowserAnimationsModule, FormsModule),
     provideHttpClient(withInterceptors([PrefixApiInterceptorInterceptor])),
     provideHttpClient(withInterceptorsFromDi()),
-    provideStore({ [categoriesFeatureKey]: categoriesReducer,[productsFeatureKey]: productsReducer,[cartsFeatureKey]: cartsReducer,[userFeatureKey]: userReducer,[singleProductFeatureKey]: singleProductReducer }),
-    provideEffects([CategoriesEffects,ProductsEffects,CartsEffects,UserEffects]),
+    provideStore({ [categoriesFeatureKey]: categoriesReducer, [productsFeatureKey]: productsReducer, [productsByCategoryFeatureKey]: productsByCategoryReducer, [cartsFeatureKey]: cartsReducer, [userFeatureKey]: userReducer, [singleProductFeatureKey]: singleProductReducer }),
+    provideEffects([CategoriesEffects, ProductsEffects, CartsEffects, UserEffects]),
     provideStoreDevtools(),
   ]
 };

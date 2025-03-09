@@ -14,7 +14,7 @@
                             <h3 class="amount">₹{{ item?.price }}</h3>
                         </div>
                         <h3 class="amount">₹{{ item?.price }}</h3>
-                        <button (click)="removeProduct(item)">Remove</button>
+                        <button (click)="removeProduct(item)" [disabled]="loading$ | async">Remove <nz-spin *ngIf="(removedItem == item && (loading$ | async))" nzSimple></nz-spin></button>
                     </div>
                 </div>
             </a>

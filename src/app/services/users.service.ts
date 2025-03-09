@@ -13,6 +13,14 @@ export class UsersService {
 
   constructor() { }
 
+  login(): Observable<any> {
+    const endPoint = `auth/login`;
+    return this.http.post<any>(endPoint,{
+      "username": "johnd",
+      "password": "m38rmF$"
+    });
+  }
+
   getSingleUser(userId: number): Observable<any> {
     const endPoint = `users/${userId}`;
     return this.http.get<any>(endPoint);

@@ -8,18 +8,11 @@ import { NzSpinModule } from 'ng-zorro-antd/spin';
 import { NzGridModule } from 'ng-zorro-antd/grid';
 import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { CommonModule } from '@angular/common';
-import { countries } from '../../helpers/countries';
 import { Store } from '@ngrx/store';
 import { UserActions } from '../../store/action/user.actions';
-import { selectedUser } from '../../store/selector/user.selectors';
-import { ProfileInterface } from '../../interfaces/profile-interface';
-import { UsersService } from '../../services/users.service';
+import { selectedUser, selectedUserUpdateLoading } from '../../store/selector/user.selectors';
+import { Observable } from 'rxjs';
 
-interface Country {
-  dial_code: string;
-  image: string;
-  name: string;
-}
 
 @Component({
   selector: 'app-profile',
@@ -34,7 +27,8 @@ interface Country {
     NzButtonModule,
     NzSpinModule,
     NzGridModule,
-    NzAvatarModule
+    NzAvatarModule,
+    NzSpinModule,
   ],
   templateUrl: './profile.component.html',
   styleUrl: './profile.component.scss',
@@ -45,6 +39,7 @@ export class ProfileComponent {
 
   profileImage: string = "assets/emptyAvator.png";
   profileEditForm: FormGroup;
+  loading$!: Observable<boolean>;
 
   private fb = inject(FormBuilder);
   private store$ = inject(Store);
@@ -75,6 +70,7 @@ export class ProfileComponent {
         this.profileEditForm.patchValue(user[0]);
       }
     })
+    this.loading$ = this.store$.select(selectedUserUpdateLoading);
   }
 
   onSubmit() {

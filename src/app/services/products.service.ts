@@ -13,7 +13,7 @@ export class ProductsService {
 
   constructor() { }
 
-  getProducts(category: string): Observable<ProductInterface[]> {
+  getProducts(): Observable<ProductInterface[]> {
     const endPoint = `products`;
     return this.http.get<ProductInterface[]>(endPoint);
   }

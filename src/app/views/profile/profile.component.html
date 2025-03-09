@@ -77,14 +77,14 @@
               <nz-form-item>
                 <nz-form-label nzRequired>Number</nz-form-label>
                 <nz-form-control [nzErrorTip]="'Fill your number'">
-                  <input nz-input formControlName="number" placeholder="Enter number" type="number"/>
+                  <input nz-input formControlName="number" placeholder="Enter number" type="number" />
                 </nz-form-control>
               </nz-form-item>
 
               <nz-form-item>
                 <nz-form-label nzRequired>ZipCode</nz-form-label>
                 <nz-form-control [nzErrorTip]="'Fill your zipcode'">
-                  <input nz-input formControlName="zipcode" placeholder="Enter zipcode"/>
+                  <input nz-input formControlName="zipcode" placeholder="Enter zipcode" />
                 </nz-form-control>
               </nz-form-item>
             </ng-container>
@@ -93,8 +93,8 @@
 
         <nz-form-item class="form-button">
           <nz-form-control>
-            <button>
-              Save
+            <button [disabled]="loading$ | async">
+              Save <nz-spin *ngIf="loading$ | async" nzSimple></nz-spin>
             </button>
           </nz-form-control>
         </nz-form-item>

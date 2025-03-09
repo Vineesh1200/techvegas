@@ -10,7 +10,16 @@ export const selectedProducts = createSelector(
     ProductsReducer.selectAllProducts
 )
 
-export const selectSingleProductState = createFeatureSelector<ProductsReducer.ProductsState>(
+export const selectProductsByCategoryState = createFeatureSelector<ProductsReducer.ProductsByCategoryState>(
+    ProductsReducer.productsByCategoryFeatureKey
+)
+
+export const selectedProductsByCategory = createSelector(
+    selectProductsByCategoryState,
+    ProductsReducer.selectAllProductsByCategory
+)
+
+export const selectSingleProductState = createFeatureSelector<ProductsReducer.SingleProductState>(
     ProductsReducer.singleProductFeatureKey
 )
 

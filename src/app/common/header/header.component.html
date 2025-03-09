@@ -2,42 +2,20 @@
     <div class="nav-content fx-center">
         <div class="nav-child left fx-center">
 
-            <div class="logo fx-center">
-                <!-- <a routerLink="/home">
-                    <img src="https://techvegas.in/images/techvegas.png" alt="Logo" />
-                </a> -->
+            <div class="back" (click)="back()">
+                <nz-icon nzType="left" nzTheme="outline" style="font-size: 20px;" />
             </div>
 
-            <div class="search-container fx-center">
-                <div class="search fx-center">
-                    <nz-input-group [nzPrefix]="suffixIcon" nzSearch>
-                        <input nz-input placeholder="Search near you" [(ngModel)]="searchText" nzAllowClear />
-                    </nz-input-group>
-
-                    <ng-template #suffixIcon>
-                        <img src="assets/Dark_Gray_Search.svg" alt="Search" />
-                    </ng-template>
-                    <button nz-button (click)="searchData()">
-                        <img src="assets/Search.svg" alt="Search" />
-                    </button>
-                </div>
-
-                <nz-modal [(nzVisible)]="isModalVisible" nzTitle="Search Results" (nzOnCancel)="handleCancel()"
-                    [nzFooter]="null">
-                    <ng-container *nzModalContent>
-                        <ul class="product-list">
-                            <li *ngFor="let product of filteredProducts$ | async; let i = index" class="product-item"
-                                (click)="naviProduct(product.id)">
-                                <img [src]="product?.image" [alt]="product?.title" class="product-image" />
-                                <div class="product-details">
-                                    <h4 class="product-title">{{ product?.title }}</h4>
-                                    <p class="product-category">{{ product?.category }}</p>
-                                </div>
-                            </li>
-                        </ul>
-                    </ng-container>
-                </nz-modal>
-
+            <div class="search-container">
+                <img src="assets/Dark_Gray_Search.svg">
+                <nz-select class="search" nzShowSearch nzAllowClear nzPlaceHolder="Search near you"
+                    (nzOnSearch)="onSearch($event)" [(ngModel)]="searchSelectedValue"
+                    (ngModelChange)="onSelected($event)">
+                    <nz-option nzCustomContent *ngFor="let product of filteredProducts$ | async"
+                        [nzLabel]="product.title" [nzValue]="product">
+                        {{ product.title }}
+                    </nz-option>
+                </nz-select>
             </div>
         </div>
 
@@ -60,8 +38,8 @@
                         <a (click)="navigateUrl('/profile')">
                             <div class="profile fx-center">
                                 <nz-avatar nzSrc="../../../assets/emptyAvator.png"></nz-avatar>
-                                <div>
-                                    <h6>Techvegas</h6>
+                                <div *ngFor="let user of userData$ | async">
+                                    <h6>{{user.username}}</h6>
                                     <p>Profile</p>
                                 </div>
                             </div>

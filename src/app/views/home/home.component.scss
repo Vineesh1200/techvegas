@@ -1,5 +1,12 @@
 .homeContainer {
-    padding:0 15px 15px;
+    padding: 0 15px 15px;
+}
+
+.carousel-image {
+    height: fit-content;
+    width: 100%;
+    object-fit: cover;
+    margin-bottom: 20px;
 }
 
 .homeContainer .brand-list {

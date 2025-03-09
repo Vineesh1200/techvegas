@@ -14,3 +14,13 @@ export const selectedCartTotal = createSelector(
     selectCartProductsState,
     CartsReducer.selectCartsTotal
 )
+
+export const selectedCartLoading = createSelector(
+    selectCartProductsState,
+    (state => state.loading)
+)
+
+export const selectedCartErrorMessage = createSelector(
+    selectCartProductsState,
+    (state => state.errorMessage)
+)

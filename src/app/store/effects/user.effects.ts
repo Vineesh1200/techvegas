@@ -5,6 +5,7 @@ import { ProductInterface } from '../../interfaces/product-interface';
 import { UsersService } from '../../services/users.service';
 import { UserActions } from '../action/user.actions';
 import { Update } from '@ngrx/entity';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +15,7 @@ export class UserEffects {
 
   private actions$ = inject(Actions);
   private usersService = inject(UsersService);
+  private nzMessageService = inject(NzMessageService);
 
   constructor() { }
 
@@ -35,6 +37,7 @@ export class UserEffects {
           id: user.id,
           changes: user
         }
+        this.nzMessageService.success('Profile information update successfully.')
         return (UserActions.updateUserSuccess({ user: updateUser }))
       }),
       catchError((error) => of(UserActions.failedUserApi({ errorMessage: error.message })))

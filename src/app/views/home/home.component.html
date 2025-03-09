@@ -1,5 +1,7 @@
 <div class="homeContainer">
 
+    <img [src]="'https://www.kottayam.lulumall.in/wp-content/uploads/2024/10/kottayam-banners-01-scaled.jpg'" alt="" class="carousel-image">
+
     <ul class="brand-list fx-center">
         <li *ngFor="let option of categories$ | async; let i = index" [class.active]="selectedValue === option"
             (click)="handleChange(option)">

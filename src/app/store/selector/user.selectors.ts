@@ -9,3 +9,13 @@ export const selectedUser = createSelector(
     selectUserState,
     UserReducer.selectAllUser
 )
+
+export const selectedUserUpdateLoading = createSelector(
+    selectUserState,
+    (state => state.loading)
+)
+
+export const selectedUserErrorMessage = createSelector(
+    selectUserState,
+    (state => state.errorMessage)
+)

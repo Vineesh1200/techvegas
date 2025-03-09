@@ -13,6 +13,11 @@
     padding-block: 10px;
 }
 
+.nav-container .back {
+    display: none;
+    cursor: pointer;
+}
+
 .nav-container .nav-content {
     justify-content: space-between;
     gap: 10px;
@@ -20,7 +25,7 @@
 
 .nav-container .nav-child.left {
     gap: 10px;
-    width: 100%;
+    width: calc(100% - 160px);
 }
 
 .nav-container .nav-child.left .logo {
@@ -36,54 +41,45 @@
     max-width: 800px;
     margin-inline: auto;
     gap: 10px;
+    position: relative;
 }
 
-.nav-container .search-container,
-.nav-container .search-container .search {
+.nav-container .search-container>img {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    left: 9px;
+    z-index: 100;
+    width: 30px;
+}
+
+.nav-container .search-container {
     gap: 10px;
+    width: 100%;
 }
 
 .nav-container .search-container .search {
-    height: 50px;
     width: 100%;
     border-radius: 6px;
 }
 
-.nav-container .search-container .search input {
+.nav-container .search-container .search select {
     background-color: var(--light-gray-clr);
 }
 
-.nav-container .search-container img {
-    width: 28px;
+::ng-deep .nav-container .search-container .ant-select-single .ant-select-selector {
+    height: 50px !important;
+    border-radius: 8px !important;
+    padding: 10px 40px !important;
 }
 
-.nav-container .search-container .search .ant-input-group-addon,
-.location-modal .ant-input-group-addon {
-    display: none;
+::ng-deep .nav-container .search-container .ant-select-single .ant-select-selection-search-input {
+    margin-left: 15px !important;
 }
 
-.nav-container .search-container .search .ant-input-outlined:focus-within,
-.nav-container .search-container .search .ant-input-outlined:focus-within,
-.nav-container .search-container .search .ant-input-outlined:hover,
-.nav-container .search-container .search .ant-input-affix-wrapper,
-.nav-container .search-container .search .ant-input-affix-wrapper-focused,
-.nav-container .search-container .search .ant-input-affix-wrapper-focused,
-.nav-container .search-container .search .ant-input-group-wrapper {
-    background-color: var(--light-gray-clr);
-    border-radius: 8px;
-    box-shadow: none;
-    outline: none;
-    border: none;
-}
-
-.nav-container .search-container .search .ant-input-group-wrapper {
-    padding: 0;
-}
-
-.nav-container .search-container .search input {
-    border: none;
-    outline: none;
-    font-size: 16px;
+::ng-deep .nav-container .search-container .anticon-search,
+::ng-deep .nav-container .search-container .anticon-down {
+    display: none !important;
 }
 
 .nav-container .search-container button {
@@ -272,8 +268,20 @@
     color: #888;
 }
 
-@media screen  and (max-width:600px){
+@media screen and (max-width:991px) {
+    .nav-container .back {
+        display: flex;
+    }
+}
+
+@media screen and (max-width:600px) {
     .nav-container .nav-child.left .logo img {
         max-width: 100px;
+    }
+    .nav-container .nav-child.right .avator {
+        min-width: 60px;
+        width: 60px;
+        height: 60px;
+        min-height: 60px;
     }
 }

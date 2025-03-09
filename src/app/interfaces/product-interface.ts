@@ -8,5 +8,6 @@ export interface ProductInterface {
     rating: {
         rate: number;
         count: number
-    }
+    },
+    isAddedCart:boolean
 }

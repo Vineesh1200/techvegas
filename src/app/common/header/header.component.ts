@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, inject, ViewEncapsulation } from '@angular/core';
 import { AsyncPipe, CommonModule } from '@angular/common';
 import { FormBuilder, FormGroup, FormsModule } from '@angular/forms';
 import { NzInputModule } from 'ng-zorro-antd/input';
@@ -11,23 +11,29 @@ import { NzAvatarModule } from 'ng-zorro-antd/avatar';
 import { Store } from '@ngrx/store';
 import { ProductInterface } from '../../interfaces/product-interface';
 import { filter, map, Observable, of } from 'rxjs';
-import { selectedProducts } from '../../store/selector/products.selectors';
+import { selectedProducts, selectedProductsByCategory } from '../../store/selector/products.selectors';
 import { CartsActions } from '../../store/action/cart.actions';
 import { selectedCartTotal } from '../../store/selector/cart.selectors';
 import { UserActions } from '../../store/action/user.actions';
+import { selectedUser } from '../../store/selector/user.selectors';
+import { ProfileInterface } from '../../interfaces/profile-interface';
+import { ProductsActions } from '../../store/action/products.actions';
+import { NzSelectModule } from 'ng-zorro-antd/select';
+import { NzIconModule } from 'ng-zorro-antd/icon';
+import { NzGridModule } from 'ng-zorro-antd/grid';
 
 @Component({
   selector: 'app-header',
   standalone: true,
-  imports: [CommonModule, NzInputModule, NzSpinModule, FormsModule, NzModalModule, NzBadgeModule, NzPopoverModule, NzAvatarModule, AsyncPipe, RouterLink],
+  imports: [CommonModule, FormsModule, NzInputModule, NzIconModule, NzGridModule, NzSpinModule, FormsModule, NzModalModule, NzBadgeModule, NzPopoverModule, NzAvatarModule, AsyncPipe, RouterLink, NzSelectModule],
   templateUrl: './header.component.html',
-  styleUrl: './header.component.scss'
+  styleUrl: './header.component.scss',
 })
+
 export class HeaderComponent {
 
-  userProfileData: any;
   items = [
-    { title: 'Help & Support', count: '', icon: 'assets/IC_Help.svg', link: '/help' },
+    { title: 'Cart', count: '', icon: 'assets/shopping-cart (2).png', link: '/cart' },
     { title: 'Logout', count: '', icon: 'assets/IC_Logout.svg', link: '' },
   ];
   searchForm: FormGroup;
@@ -36,7 +42,9 @@ export class HeaderComponent {
   searchProductData$!: Observable<ProductInterface[]>;
   filteredProducts$!: Observable<ProductInterface[]>;
   isLoading: boolean = false;
+  userData$!: Observable<ProfileInterface[]>;
   cartsCount: number = 0;
+  searchSelectedValue = ""
 
   private fb = inject(FormBuilder);
   private router = inject(Router);
@@ -49,35 +57,37 @@ export class HeaderComponent {
   }
 
   ngOnInit() {
+    this.store$.dispatch(ProductsActions.getProducts());
     this.searchProductData$ = this.store$.select(selectedProducts);
     this.store$.dispatch(UserActions.getUser({ userId: 1 }));
+    this.userData$ = this.store$.select(selectedUser);
     this.store$.dispatch(CartsActions.getCarts({ userId: 1 }));
     this.store$.select(selectedCartTotal).subscribe((total: number) => {
       this.cartsCount = total
     });
   }
 
-  searchData(): void {
-    this.isModalVisible = true;
-    if (!this.searchText) {
-      this.filteredProducts$ = this.searchProductData$;
-    } else {
-      this.filteredProducts$ = this.searchProductData$.pipe(
-        map((products) =>
-          products.filter((product) =>
-            product.title.toLowerCase().includes(this.searchText.toLowerCase())
-          )
+  onSearch(searchText: any): void {
+    this.searchText = searchText;
+    this.filteredProducts$ = this.searchProductData$.pipe(
+      map((products) =>
+        products.filter((product) =>
+          product.title.toLowerCase().includes(this.searchText.toLowerCase())
         )
-      );
-    }
+      )
+    );
+  }
+
+  back() {
+    window.history.back();
   }
 
   handleCancel(): void {
     this.isModalVisible = false;
   }
 
-  naviProduct(productId: number): void {
-    this.router.navigate([`/product-detail/${productId}`]);
+  onSelected(product: ProductInterface): void {
+    this.router.navigate([`/product-detail/${product.id}`]);
   }
 
   navigateUrl(link: string): void {

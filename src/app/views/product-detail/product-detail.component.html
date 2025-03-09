@@ -10,7 +10,8 @@
                 <nz-rate [ngModel]="2" nzDisabled></nz-rate>
                 <h1>₹{{detail.price}}</h1>
                 <h5>{{detail.description}}</h5>
-                <button (click)="addCart(detail)">Add Cart</button>
+                <button (click)="addCart(detail)" [disabled]="loading$ | async">{{detail.isAddedCart ? 'Added' : 'Add'}}
+                    Cart</button>
             </nz-col>
         </nz-row>
     </ng-container>

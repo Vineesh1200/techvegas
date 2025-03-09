@@ -6,6 +6,7 @@ import { ProductInterface } from '../../interfaces/product-interface';
 import { CartsActions } from '../action/cart.actions';
 import { CartsService } from '../../services/carts.service';
 import { Update } from '@ngrx/entity';
+import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +17,7 @@ export class CartsEffects {
   private actions$ = inject(Actions);
   private cartsService = inject(CartsService);
   private productsService = inject(ProductsService);
+  private nzMessageService = inject(NzMessageService);
 
   constructor() { }
 
@@ -58,11 +60,8 @@ export class CartsEffects {
     ofType(CartsActions.addCarts),
     switchMap(({ userId, addCartData }) => this.cartsService.getUpdateCarts(userId, addCartData).pipe(
       map((product) => {
-        const updatedCart: Update<ProductInterface> = {
-          id: product.id,
-          changes: product
-        }
-        return CartsActions.addCartsSuccess({ updatedProductByCart: updatedCart })
+        this.nzMessageService.success('Product added from cart.')
+        return CartsActions.addCartsSuccess({ updatedProductByCart: product.products[0] })
       }),
       catchError((error) => of(CartsActions.failedCartsApi({ errorMessage: error.message })))
     ))
@@ -70,8 +69,11 @@ export class CartsEffects {
 
   loadDeleteCart$ = createEffect(() => this.actions$.pipe(
     ofType(CartsActions.deleteCarts),
-    mergeMap(({ userId, updateCartData, deletedProductByCart }) => this.cartsService.getUpdateCarts(userId, updateCartData).pipe(
-      map(() => CartsActions.deleteCartsSuccess({ deletedProductByCart: deletedProductByCart })),
+    mergeMap(({ userId, deletedProductByCart }) => this.cartsService.getUpdateCarts(userId, deletedProductByCart).pipe(
+      map(() => {
+        this.nzMessageService.success('Product removed from cart.')
+        return CartsActions.deleteCartsSuccess({ deletedProductByCart: deletedProductByCart.products[0] })
+      }),
       catchError((error) => of(CartsActions.failedCartsApi({ errorMessage: error.message })))
     ))
   ))
