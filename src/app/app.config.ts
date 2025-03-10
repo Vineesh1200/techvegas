@@ -17,9 +17,15 @@ import { cartsFeatureKey, cartsReducer } from './store/reducer/cart.reducer';
 import { CartsEffects } from './store/effects/cart.effects';
 import { userFeatureKey, userReducer } from './store/reducer/user.reducer';
 import { UserEffects } from './store/effects/user.effects';
+import { NZ_I18N, en_US } from 'ng-zorro-antd/i18n';
+import { registerLocaleData } from '@angular/common';
+import en from '@angular/common/locales/en';
+
+registerLocaleData(en);
 
 export const appConfig: ApplicationConfig = {
   providers: [
+    { provide: NZ_I18N, useValue: en_US },
     provideZoneChangeDetection({ eventCoalescing: true }),
     provideClientHydration(),
     provideRouter(routes),

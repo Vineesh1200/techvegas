@@ -2,7 +2,7 @@
     <div class="nav-content fx-center">
         <div class="nav-child left fx-center">
 
-            <div class="back" (click)="back()">
+            <div class="back" (click)="back()" *ngIf="!(isHome$ | async)">
                 <nz-icon nzType="left" nzTheme="outline" style="font-size: 20px;" />
             </div>
 

@@ -2,7 +2,7 @@ import { Component, inject } from '@angular/core';
 import { ActivatedRoute, Params } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { SingleProductActions } from '../../store/action/products.actions';
-import { map, Observable, of, tap } from 'rxjs';
+import { map, Observable } from 'rxjs';
 import { ProductInterface } from '../../interfaces/product-interface';
 import { selectedSingleProduct } from '../../store/selector/products.selectors';
 import { NzSkeletonModule } from 'ng-zorro-antd/skeleton';

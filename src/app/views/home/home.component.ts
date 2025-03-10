@@ -14,7 +14,6 @@ import { Router } from '@angular/router';
 import { NzRateModule } from 'ng-zorro-antd/rate';
 import { FormsModule } from '@angular/forms';
 import { NzCarouselModule } from 'ng-zorro-antd/carousel';
-import { UsersService } from '../../services/users.service';
 
 
 @Component({
@@ -40,12 +39,8 @@ export class HomeComponent {
 
   private router = inject(Router);
   private store$ = inject(Store);
-  private use = inject(UsersService);
 
   ngOnInit() {
-    this.use.login().subscribe((res:any)=>{
-      console.log(res)
-    })
     this.store$.dispatch(CategoriesActions.getCategories());
     this.categories$ = this.store$.select(selectedCategories);
     this.categories$.subscribe((value: any) => {
