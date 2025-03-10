@@ -1,5 +1,5 @@
 [build]
-   base = "assignment-tech1"
+   base = "techvegas"
    command = "npm run build:prod"
    publish = "dist/browser"
 
