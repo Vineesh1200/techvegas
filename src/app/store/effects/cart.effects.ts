@@ -1,11 +1,9 @@
 import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { ProductsService } from '../../services/products.service';
-import { catchError, exhaustMap, forkJoin, map, mergeMap, of, switchMap } from 'rxjs';
-import { ProductInterface } from '../../interfaces/product-interface';
+import { catchError, concatMap, exhaustMap, forkJoin, map, mergeMap, of, switchMap } from 'rxjs';
 import { CartsActions } from '../action/cart.actions';
 import { CartsService } from '../../services/carts.service';
-import { Update } from '@ngrx/entity';
 import { NzMessageService } from 'ng-zorro-antd/message';
 
 @Injectable({
@@ -26,7 +24,7 @@ export class CartsEffects {
       ofType(CartsActions.getCarts),
       exhaustMap(({ userId }) =>
         this.cartsService.getCarts(userId).pipe(
-          mergeMap((cart: any) => {
+          switchMap((cart: any) => {
             const productIds = cart.products.map((product: any) => product.productId);
             const productRequests = productIds.map((productId: any) =>
               this.productsService.getSingleProducts(productId)
@@ -58,7 +56,7 @@ export class CartsEffects {
 
   loadAddCart$ = createEffect(() => this.actions$.pipe(
     ofType(CartsActions.addCarts),
-    switchMap(({ userId, addCartData }) => this.cartsService.getUpdateCarts(userId, addCartData).pipe(
+    concatMap(({ userId, addCartData }) => this.cartsService.getUpdateCarts(userId, addCartData).pipe(
       map((product) => {
         this.nzMessageService.success('Product added from cart.')
         return CartsActions.addCartsSuccess({ updatedProductByCart: product.products[0] })
